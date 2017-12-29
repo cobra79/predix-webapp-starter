@@ -30,6 +30,7 @@ bower install
 ```
 
 ### For this example a real asset-service instance must be used.
+Create a localConfig.json in the /server directory and copy the content from https://github.com/PredixDev/predix-webapp-starter/blob/master/server/localConfig.json
 Enter the details of your uaa and asset service at least in the localConfig.json 
 (to run also the app.js part in the cloud the service information needs to be copied to the manifest)
 
