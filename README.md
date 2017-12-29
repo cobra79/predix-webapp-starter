@@ -9,7 +9,7 @@ This example is not using the asset bootstrap SDK; It is plain Node.js implement
 ### Get the source code
 Make a directory for your project.  Clone or download and extract the starter in that directory.
 ```
-git clone https://github.com/PredixDev/predix-webapp-starter.git  
+git clone https://github.com/cobra79/predix-webapp-starter.git  
 cd predix-webapp-starter
 ```
 
@@ -32,13 +32,15 @@ Enter the details of your uaa and asset service at least in the localConfig.json
 (to run also the app.js part in the cloud the service information needs to be copied to the manifest)
 
 You need to set:
-
+```
 "uaaURL": "https://<your uaa id>.predix-uaa.run.aws-usw02-pr.ice.predix.io",
 "base64ClientCredential": "<base 64 encoded client credentials>",
 "loginBase64ClientCredential": "<base 64 encoded client credentials>",
 ...
 "assetURL": "https://predix-asset.run.aws-usw02-pr.ice.predix.io",
 "assetZoneId": "<your asset zone id>",
+...
+```
 
 ## Running the app locally
 The default gulp task will start a local web server.  Just run this command:
