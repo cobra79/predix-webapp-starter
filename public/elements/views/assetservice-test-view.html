@@ -1,0 +1,123 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/px-card/px-card.html">
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../../bower_components/px-data-table/px-data-table.html" />
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/paper-input/paper-textarea.html">
+<link rel="import" href="assetservice-test-view-styles.html">
+
+<dom-module id="assetservice-test-view">
+
+    <template>
+
+        <style include="assetservice-test-view-styles" is="custom-style"></style>
+        <style>
+            paper-input{
+                --paper-input-container-input-color: white;
+            }
+            paper-textarea{
+                --paper-input-container-input-color: white;
+            }
+        </style>
+
+
+        <px-card header-text="GET Request to Asset Service">
+            <paper-input value="{{getUrl}}" label="URL"></paper-input>
+            <button class="btn" on-tap="testGet">GET</button>
+
+            <template is="dom-repeat" items="{{assets}}">
+                <template is="dom-repeat" items="{{_toArray(item)}}">
+                    <h3>{{item.name}}: {{item.value}}</h3>
+                </template>
+            </template>
+        </px-card>
+
+        <px-card header-text="POST Request to Asset Service">
+            <paper-input value="{{postUrl}}" label="URL"></paper-input>
+            <paper-textarea value="{{postBody}}" label="Post Body"></paper-textarea>
+            <button class="btn" on-tap="testPost">POST</button>
+        </px-card>
+
+
+
+        <iron-ajax
+                auto
+                id="ajaxGet"
+                method="GET"
+                url="{{getUrl}}"
+                handle-as="json"
+                on-response="handleGetResponse"
+                on-error = "handleGetError"
+                handle-as="json"
+                last-response="{{assets}}"
+        ></iron-ajax>
+
+        <iron-ajax
+                id="ajaxPost"
+                content-type="application/json"
+                method="POST"
+                url="{{postUrl}}"
+                handle-as="json"
+                on-response="handlePostResponse"
+                on-error = "handlePostError"
+                handle-as="json"
+        ></iron-ajax>
+
+    </template>
+
+
+
+    <script>
+        Polymer({
+            is:'assetservice-test-view',
+            properties:{
+                assets:{
+                    type:Array
+                },
+                getUrl:{
+                    type:String,
+                    value:'/api/predix-asset/engine'
+                },
+                postUrl:{
+                    type:String,
+                    value:'/api/predix-asset/pole'
+                },
+                postBody:{
+                    type:String,
+                    value:'[{"uri": "/pole/1"}]'
+                }
+            },
+            testGet:function () {
+                this.$.ajaxGet.generateRequest();
+            },
+            testPost:function() {
+                this.$.ajaxPost.body = JSON.parse(this.postBody);
+                this.$.ajaxPost.generateRequest();
+            },
+            handleGetError:function(e){
+                console.log('Get Error');
+                console.log(e);
+            },
+            handleGetResponse:function (e) {
+                console.log('Response for '+ e.detail.url);
+                console.log(this.assets);
+            },
+            handlePostError:function(e){
+                console.log('Post Error');
+                console.log(e.detail.error);
+                console.log(e);
+            },
+            handlePostResponse:function (e) {
+                //TODO:Implement detail logging for post response
+            },
+            _toArray: function(obj) {
+                return Object.keys(obj).map(function(key) {
+                    return {
+                        name: key,
+                        value: obj[key]
+                    };
+                });
+            }
+        })
+    </script>
+</dom-module>
