@@ -4,6 +4,8 @@ Base for this example is the Predix WebApp Starter project.
 Main objective is to provide a lean example that demonstrates the end-to-end integration between the Predix asset service and a web frontend.
 This example is not using the asset bootstrap SDK; It is plain Node.js implementation to access assets from the backend service in a Predix-UI (Polymer) frontend.
 
+![](https://github.com/cobra79/predix-webapp-starter/wiki/img/get_engine.png)
+
 ## Getting Started
 
 ### Get the source code
